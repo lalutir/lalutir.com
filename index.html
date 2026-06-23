@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lalutir.com</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --border: #2a2d3a;
+      --accent: #6c8fff;
+      --accent-dim: #3d56cc;
+      --text: #e8eaf0;
+      --text-muted: #8b90a0;
+      --radius: 12px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 80px 24px 60px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    header h1 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--text);
+    }
+
+    header h1 span {
+      color: var(--accent);
+    }
+
+    header p {
+      margin-top: 12px;
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      width: 100%;
+      max-width: 780px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: border-color 0.2s, transform 0.2s;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .card:hover {
+      border-color: var(--accent-dim);
+      transform: translateY(-3px);
+    }
+
+    .card-icon {
+      font-size: 1.8rem;
+      line-height: 1;
+    }
+
+    .card h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .card p {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .card-link {
+      margin-top: 8px;
+      font-size: 0.85rem;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .card-link::after {
+      content: "→";
+      transition: transform 0.15s;
+    }
+
+    .card:hover .card-link::after {
+      transform: translateX(4px);
+    }
+
+    footer {
+      margin-top: 64px;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+    }
+
+    @media (max-width: 480px) {
+      header h1 { font-size: 1.9rem; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1><span>lalutir</span>.com</h1>
+    <p>A collection of projects and tools.</p>
+  </header>
+
+  <main class="grid">
+
+    <a class="card" href="https://world-cup-simulator.lalutir.com" target="_blank" rel="noopener">
+      <div class="card-icon">⚽</div>
+      <h2>World Cup Simulator</h2>
+      <p>Simulates the 2026 FIFA World Cup knockout phase one million times using Elo ratings and match history to predict each team's chances of advancing.</p>
+      <span class="card-link">world-cup-simulator.lalutir.com</span>
+    </a>
+
+    <a class="card" href="https://p2000.lalutir.com" target="_blank" rel="noopener">
+      <div class="card-icon">🚨</div>
+      <h2>P2000 Reader</h2>
+      <p>Live feed of Dutch emergency services alerts (fire, ambulance, police). Updates in real time via WebSocket with optional push notifications.</p>
+      <span class="card-link">p2000.lalutir.com</span>
+    </a>
+
+  </main>
+
+  <footer>
+    &copy; <span id="year"></span> lalutir.com
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>
