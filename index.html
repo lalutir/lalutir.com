@@ -1,162 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lalutir.com</title>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg: #0f1117;
-      --surface: #1a1d27;
-      --border: #2a2d3a;
-      --accent: #6c8fff;
-      --accent-dim: #3d56cc;
-      --text: #e8eaf0;
-      --text-muted: #8b90a0;
-      --radius: 12px;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 80px 24px 60px;
-    }
-
-    header {
-      text-align: center;
-      margin-bottom: 64px;
-    }
-
-    header h1 {
-      font-size: 2.4rem;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      color: var(--text);
-    }
-
-    header h1 span {
-      color: var(--accent);
-    }
-
-    header p {
-      margin-top: 12px;
-      color: var(--text-muted);
-      font-size: 1.05rem;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 20px;
-      width: 100%;
-      max-width: 780px;
-    }
-
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 28px 28px 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      transition: border-color 0.2s, transform 0.2s;
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .card:hover {
-      border-color: var(--accent-dim);
-      transform: translateY(-3px);
-    }
-
-    .card-icon {
-      font-size: 1.8rem;
-      line-height: 1;
-    }
-
-    .card h2 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--text);
-    }
-
-    .card p {
-      font-size: 0.92rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-      flex: 1;
-    }
-
-    .card-link {
-      margin-top: 8px;
-      font-size: 0.85rem;
-      color: var(--accent);
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .card-link::after {
-      content: "→";
-      transition: transform 0.15s;
-    }
-
-    .card:hover .card-link::after {
-      transform: translateX(4px);
-    }
-
-    footer {
-      margin-top: 64px;
-      color: var(--text-muted);
-      font-size: 0.82rem;
-    }
-
-    @media (max-width: 480px) {
-      header h1 { font-size: 1.9rem; }
-      .grid { grid-template-columns: 1fr; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>lalutir.com — personal site &amp; portfolio</title>
+<meta name="description" content="Personal site and portfolio for lalutir — self-hosted projects including a World Cup outcome simulator and a real-time Dutch emergency alerts feed.">
+<meta name="theme-color" content="#F3EEE4">
+<meta property="og:type" content="website">
+<meta property="og:title" content="lalutir.com">
+<meta property="og:description" content="Self-hosted projects, portfolio, and a bit about the person behind them.">
+<meta property="og:url" content="https://lalutir.com/">
+<meta property="og:image" content="https://lalutir.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..600&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/tokens.css">
+<link rel="stylesheet" href="/assets/css/site.css">
 </head>
 <body>
 
-  <header>
-    <h1><span>lalutir</span>.com</h1>
-    <p>A collection of projects and tools.</p>
-  </header>
+<a href="#main" class="skip-link">Skip to content</a>
 
-  <main class="grid">
+<nav class="site-nav glass-panel" aria-label="Primary">
+  <a class="mark" href="/">lalutir</a>
+  <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links">Menu</button>
+  <ul id="nav-links">
+    <li><a href="/" aria-current="page">Home</a></li>
+    <li><a href="/portfolio/">Portfolio</a></li>
+    <li><a href="/about/">About</a></li>
+    <li><a href="/resume/">Resume</a></li>
+    <li><a href="/contact/">Contact</a></li>
+  </ul>
+</nav>
 
-    <a class="card" href="https://world-cup-simulation.lalutir.com" target="_blank" rel="noopener">
-      <div class="card-icon">⚽</div>
-      <h2>World Cup Simulator</h2>
-      <p>Simulates the 2026 FIFA World Cup knockout phase one million times using Elo ratings and match history to predict each team's chances of advancing.</p>
-      <span class="card-link">world-cup-simulation.lalutir.com</span>
-    </a>
+<main id="main">
 
-    <a class="card" href="https://p2000.lalutir.com" target="_blank" rel="noopener">
-      <div class="card-icon">🚨</div>
-      <h2>P2000 Reader</h2>
-      <p>Live feed of Dutch emergency services alerts (fire, ambulance, police). Updates in real time via WebSocket with optional push notifications.</p>
-      <span class="card-link">p2000.lalutir.com</span>
-    </a>
+  <section class="hero">
+    <div class="hero-panel glass-panel">
+      <h1>I build things that run on my own server.</h1>
+      <p class="lede">Not a managed platform, not someone else's cloud — a single DigitalOcean droplet running Caddy, serving this site and everything behind it. Two projects are live there right now.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="/portfolio/">See the portfolio</a>
+        <a class="btn btn-secondary" href="/about/">About me</a>
+      </div>
+    </div>
+  </section>
 
-  </main>
+  <section class="section">
+    <div class="section-head">
+      <h2>Featured work</h2>
+      <a href="/portfolio/">View all &rarr;</a>
+    </div>
+    <div class="work-grid">
 
-  <footer>
-    &copy; <span id="year"></span> lalutir.com
-  </footer>
+      <a class="work-card glass-panel" href="https://world-cup-simulation.lalutir.com" target="_blank" rel="noopener">
+        <span class="work-icon" aria-hidden="true">&#9917;</span>
+        <h3>World Cup Simulator</h3>
+        <p>Simulates the 2026 World Cup knockout stage a million times over — Elo ratings, a trained outcome model, Monte Carlo — then renders the odds as a static dashboard.</p>
+        <span class="work-link">world-cup-simulation.lalutir.com &rarr;</span>
+      </a>
 
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+      <a class="work-card glass-panel glass-panel--amber" href="https://p2000.lalutir.com" target="_blank" rel="noopener">
+        <span class="work-icon" aria-hidden="true">&#128680;</span>
+        <h3>P2000 Reader</h3>
+        <p>A live feed of Dutch emergency dispatches — fire, ambulance, police — pulled from p2000-online.net and pushed to the browser over WebSocket in real time.</p>
+        <span class="work-link">p2000.lalutir.com &rarr;</span>
+      </a>
 
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="infra-note glass-panel glass-panel--kelp">
+      <h2>How this runs</h2>
+      <p>This domain, both subdomains above, and the server behind them are one small, self-managed setup: a single DigitalOcean droplet, Caddy for TLS and routing, deployed over SSH by a shell script — no managed platform in between.</p>
+      <p><a href="https://github.com/lalutir/lalutir.com" target="_blank" rel="noopener">Source for this site on GitHub &rarr;</a></p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="https://github.com/lalutir" target="_blank" rel="noopener">GitHub</a>
+    <a href="mailto:hello@lalutir.com">hello@lalutir.com</a>
+    <a href="/contact/">Contact</a>
+  </div>
+  <p>&copy; <span id="year"></span> lalutir.com</p>
+</footer>
+
+<script src="/assets/js/site.js"></script>
 </body>
 </html>

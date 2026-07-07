@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — lalutir.com</title>
+<meta name="description" content="Selected work: a Monte Carlo World Cup outcome simulator and a real-time feed of Dutch emergency alerts, both self-hosted.">
+<meta name="theme-color" content="#F3EEE4">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Portfolio — lalutir.com">
+<meta property="og:description" content="Selected work: a Monte Carlo World Cup outcome simulator and a real-time feed of Dutch emergency alerts.">
+<meta property="og:url" content="https://lalutir.com/portfolio/">
+<meta property="og:image" content="https://lalutir.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..600&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/tokens.css">
+<link rel="stylesheet" href="/assets/css/site.css">
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to content</a>
+
+<nav class="site-nav glass-panel" aria-label="Primary">
+  <a class="mark" href="/">lalutir</a>
+  <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links">Menu</button>
+  <ul id="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/portfolio/" aria-current="page">Portfolio</a></li>
+    <li><a href="/about/">About</a></li>
+    <li><a href="/resume/">Resume</a></li>
+    <li><a href="/contact/">Contact</a></li>
+  </ul>
+</nav>
+
+<main id="main">
+
+  <header class="page-header">
+    <span class="eyebrow">Portfolio</span>
+    <h1>Selected work</h1>
+    <p class="intro">Two projects, both self-hosted on the same droplet as this site, both still running in production. Each one is a full write-up below — live link and source included.</p>
+  </header>
+
+  <div class="section">
+
+    <article class="project glass-panel">
+      <div class="project-icon" aria-hidden="true">&#9917;</div>
+      <div>
+        <h2>World Cup Simulator</h2>
+        <p>A Python pipeline that simulates the 2026 FIFA World Cup knockout phase one million times. Team strength comes from Elo ratings; a trained match-outcome model converts that into win / draw / loss probabilities; Monte Carlo simulation runs the full bracket out a million times to produce advancement odds for every team. The result renders as a static dashboard — no server-side logic once it's deployed, just generated HTML.</p>
+        <div class="tag-list">
+          <span class="tag">Python</span>
+          <span class="tag">Elo ratings</span>
+          <span class="tag">Monte Carlo simulation</span>
+          <span class="tag">Static site</span>
+        </div>
+        <div class="project-links">
+          <a class="btn btn-primary" href="https://world-cup-simulation.lalutir.com" target="_blank" rel="noopener">Visit site</a>
+          <a class="btn btn-secondary" href="https://github.com/lalutir/world-cup-predictor" target="_blank" rel="noopener">View source</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="project glass-panel glass-panel--amber">
+      <div class="project-icon" aria-hidden="true">&#128680;</div>
+      <div>
+        <h2>P2000 Reader</h2>
+        <p>A live feed of Dutch emergency-services alerts — fire, ambulance, police — scraped from p2000-online.net and broadcast to every connected browser over WebSocket, with optional Web Push notifications. There's no database: the last 50 alerts live in memory on the FastAPI backend and in the browser's <code>localStorage</code>, which keeps the whole thing simple to run and easy to reason about.</p>
+        <div class="tag-list">
+          <span class="tag">Python</span>
+          <span class="tag">FastAPI</span>
+          <span class="tag">WebSocket</span>
+          <span class="tag">Web Push</span>
+          <span class="tag">Vite</span>
+        </div>
+        <div class="project-links">
+          <a class="btn btn-primary" href="https://p2000.lalutir.com" target="_blank" rel="noopener">Visit site</a>
+          <a class="btn btn-secondary" href="https://github.com/lalutir/p2000-reader" target="_blank" rel="noopener">View source</a>
+        </div>
+      </div>
+    </article>
+
+    <div class="more-projects glass-panel glass-panel--kelp">
+      <h2>More on the way</h2>
+      <p>New subdomains get added here as they go live — each one is its own repo with its own Caddy config and deploy script, on purpose, so adding a project never means touching this site. <a href="/contact/">Get in touch</a> if you want to hear about the next one first.</p>
+    </div>
+
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="https://github.com/lalutir" target="_blank" rel="noopener">GitHub</a>
+    <a href="mailto:hello@lalutir.com">hello@lalutir.com</a>
+    <a href="/contact/">Contact</a>
+  </div>
+  <p>&copy; <span id="year"></span> lalutir.com</p>
+</footer>
+
+<script src="/assets/js/site.js"></script>
+</body>
+</html>

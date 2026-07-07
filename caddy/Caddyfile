@@ -1,7 +1,10 @@
 lalutir.com {
     root * /home/lalutir/lalutir.com
-    try_files {path} /index.html
     file_server
+    handle_errors {
+        rewrite * /404.html
+        file_server
+    }
 }
 
 import /etc/caddy/conf.d/*.caddy

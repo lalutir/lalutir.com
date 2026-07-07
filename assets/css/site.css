@@ -1,0 +1,337 @@
+/* ==========================================================================
+   lalutir.com — site.css
+   Implementation layer. tokens.css defines the palette/type/glass system;
+   this file is everything specific to this site's pages. Never redeclare
+   a color or spacing value here — reference the token.
+   ========================================================================== */
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--sand);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-optical-sizing: none;
+  font-variation-settings: 'opsz' 12;
+  font-weight: 500;
+  line-height: 1.15;
+  margin: 0 0 0.45em;
+}
+
+p { margin: 0 0 1em; color: var(--ink-soft); max-width: 65ch; }
+a { color: var(--kelp); }
+a:hover { color: var(--ink); }
+
+:focus-visible {
+  outline: 2px solid var(--cobalt-rare);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.wrap {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+img, svg { max-width: 100%; display: block; }
+
+/* ---- Skip link (a11y — appears on keyboard focus only) ---- */
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: auto;
+  background: var(--ink);
+  color: var(--sand);
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-control);
+  z-index: 100;
+}
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+}
+
+/* ---- Nav ---- */
+.site-nav {
+  position: sticky;
+  top: 1rem;
+  z-index: 20;
+  margin: 1rem auto 0;
+  max-width: 720px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.7rem 0.7rem 0.7rem 1.35rem;
+}
+.site-nav .mark {
+  font-family: var(--font-display);
+  font-optical-sizing: none;
+  font-variation-settings: 'opsz' 12;
+  font-size: 1.1rem;
+  color: var(--ink);
+  text-decoration: none;
+}
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+  padding: 0.5rem 0.85rem;
+}
+.site-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+  font-size: 0.9rem;
+}
+.site-nav a { color: var(--ink); text-decoration: none; }
+.site-nav a:hover,
+.site-nav a[aria-current="page"] { color: var(--kelp); }
+.site-nav a[aria-current="page"] { font-weight: 600; }
+
+@media (max-width: 620px) {
+  .nav-toggle { display: block; }
+  .site-nav ul {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 0;
+    background: var(--sand-solid);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-panel);
+    padding: 0.5rem;
+    display: none;
+  }
+  .site-nav ul.is-open { display: flex; }
+  .site-nav li { border-bottom: 1px solid var(--glass-border); }
+  .site-nav li:last-child { border-bottom: none; }
+  .site-nav a { display: block; padding: 0.75rem 1rem; }
+}
+
+/* ---- Footer ---- */
+.site-footer {
+  text-align: center;
+  padding: 3rem 1.5rem 3.5rem;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+.site-footer .footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.25rem;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+}
+.site-footer a { color: var(--ink-soft); }
+.site-footer a:hover { color: var(--kelp); }
+
+/* ---- Page header (Portfolio / About / Resume / Contact) ---- */
+.page-header {
+  padding: clamp(3rem, 7vw, 5rem) 1.5rem 1rem;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+.eyebrow {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--kelp);
+  margin-bottom: 0.75rem;
+}
+.page-header h1 { font-size: var(--size-display); }
+.page-header .intro { font-size: 1.05rem; max-width: 60ch; }
+
+/* ---- Buttons ---- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.75rem 1.4rem;
+  border-radius: var(--radius-control);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: transform var(--motion-shift);
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-primary { background: var(--cobalt-rare); color: var(--sand); }
+.btn-secondary {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--glass-border);
+}
+
+/* ==========================================================================
+   Home
+   ========================================================================== */
+.hero { padding: var(--space-section) 1.5rem 3rem; display: flex; justify-content: center; }
+.hero-panel {
+  --mx: 0;
+  --my: 0;
+  max-width: 720px;
+  padding: clamp(2rem, 5vw, 3.5rem);
+  text-align: center;
+  background:
+    radial-gradient(circle at calc(50% + var(--mx) * 8%) calc(50% + var(--my) * 8%), var(--glass-tint-seafoam), transparent 70%),
+    var(--glass-tint-seafoam);
+}
+.hero-panel .eyebrow { display: block; margin-bottom: 1rem; }
+.hero-panel h1 { font-size: var(--size-display); }
+.hero-panel .lede { font-size: 1.1rem; max-width: 50ch; margin-inline: auto; }
+.hero-actions { display: flex; gap: 0.75rem; justify-content: center; margin-top: 1.5rem; flex-wrap: wrap; }
+
+.section { padding: 2.5rem 1.5rem var(--space-section); max-width: var(--max-width); margin: 0 auto; }
+.section-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: 1.75rem; flex-wrap: wrap; }
+.section-head h2 { font-size: var(--size-h2); margin: 0; }
+.section-head a { font-size: 0.9rem; white-space: nowrap; }
+
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+.work-card {
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  text-decoration: none;
+  color: inherit;
+  opacity: 0.82;
+  backdrop-filter: blur(calc(var(--glass-blur) + 6px));
+  -webkit-backdrop-filter: blur(calc(var(--glass-blur) + 6px));
+}
+.work-card:hover,
+.work-card.is-focused {
+  opacity: 1;
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+}
+.work-card .work-icon { font-size: 1.6rem; }
+.work-card h3 { font-size: 1.05rem; margin-bottom: 0; }
+.work-card p { font-size: 0.92rem; margin-bottom: 0.25rem; }
+.work-card .work-link { font-size: 0.82rem; color: var(--kelp); }
+
+.infra-note { padding: 1.75rem; }
+.infra-note p:last-child { margin-bottom: 0; }
+
+/* ==========================================================================
+   Portfolio
+   ========================================================================== */
+.project {
+  padding: clamp(1.75rem, 4vw, 2.75rem);
+  margin-bottom: 1.75rem;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.5rem;
+  opacity: 0.85;
+  backdrop-filter: blur(calc(var(--glass-blur) + 6px));
+  -webkit-backdrop-filter: blur(calc(var(--glass-blur) + 6px));
+}
+.project.is-focused {
+  opacity: 1;
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+}
+.project-icon {
+  font-size: 2.2rem;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.project h2 { font-size: var(--size-h2); }
+.tag-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.75rem 0 1.25rem; }
+.tag {
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  background: var(--sand-solid);
+  border: 1px solid var(--glass-border);
+  color: var(--ink-soft);
+}
+.project-links { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+@media (max-width: 560px) {
+  .project { grid-template-columns: 1fr; }
+}
+
+.more-projects {
+  padding: 2rem;
+  text-align: center;
+}
+
+/* ==========================================================================
+   Resume
+   ========================================================================== */
+.resume-block { margin-bottom: 2.5rem; }
+.resume-block h2 { font-size: var(--size-h2); margin-bottom: 1.25rem; }
+.entry { padding: 1.5rem 1.75rem; margin-bottom: 1rem; }
+.entry-head { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; align-items: baseline; }
+.entry-head h3 { font-size: 1.05rem; margin-bottom: 0; }
+.entry-when { font-size: 0.85rem; color: var(--ink-soft); white-space: nowrap; }
+.entry p { margin-top: 0.5rem; margin-bottom: 0; font-size: 0.95rem; }
+.skills-panel { padding: 1.75rem; }
+.skills-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.25rem; }
+.skills-group h3 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--kelp); margin-bottom: 0.6rem; }
+.skills-group ul { list-style: none; margin: 0; padding: 0; font-size: 0.92rem; }
+.skills-group li { margin-bottom: 0.3rem; }
+.placeholder-note {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--amber-glass);
+  border-left: 2px solid var(--amber-glass);
+  padding-left: 0.75rem;
+  margin: 0.75rem 0 0;
+}
+
+/* ==========================================================================
+   Contact
+   ========================================================================== */
+.contact-list { list-style: none; margin: 1.5rem 0 0; padding: 0; display: grid; gap: 1rem; max-width: 480px; }
+.contact-list a {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 1.1rem 1.4rem;
+  text-decoration: none;
+  color: var(--ink);
+}
+.contact-list .contact-icon { font-size: 1.3rem; }
+.contact-list .contact-detail { font-size: 0.85rem; color: var(--ink-soft); display: block; }
+
+/* ==========================================================================
+   404
+   ========================================================================== */
+.not-found {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem;
+}
+.not-found .glass-panel { text-align: center; padding: clamp(2rem, 5vw, 3rem); max-width: 480px; }
