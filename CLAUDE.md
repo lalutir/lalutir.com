@@ -54,3 +54,9 @@ Anti-patterns: numbered 01/02/03 markers unless content is a genuine sequence; m
 ## A known tradeoff
 
 Nav and footer are duplicated by hand across every page rather than templated — kept that way to match this repo's existing zero-build-step philosophy (its own README: "This repo contains only the landing page and top-level Caddy config"). If hand-editing six copies of the nav ever gets painful, the natural next step is a light static site generator (Eleventy, for instance) or a small script that stitches shared partials at commit time — not needed yet, just worth knowing it's the escape hatch.
+
+## When to commit
+
+- Create commits after completing each logical unit of work.
+- Do not push to the remote repository unless asked.
+- Use conventional commit messages (e.g. "feat:", "fix:", "refactor:").
