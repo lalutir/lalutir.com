@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Portfolio — lalutir.com</title>
-<meta name="description" content="Selected work: a Monte Carlo World Cup outcome simulator and a real-time feed of Dutch emergency alerts, both self-hosted.">
+<meta name="description" content="Selected work: a Monte Carlo World Cup outcome simulator, a real-time feed of Dutch emergency alerts, and a twice-daily politics news digest, all self-hosted.">
 <meta name="theme-color" content="#F3EEE4">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Portfolio — lalutir.com">
-<meta property="og:description" content="Selected work: a Monte Carlo World Cup outcome simulator and a real-time feed of Dutch emergency alerts.">
+<meta property="og:description" content="Selected work: a Monte Carlo World Cup outcome simulator, a real-time feed of Dutch emergency alerts, and a twice-daily politics news digest.">
 <meta property="og:url" content="https://lalutir.com/portfolio/">
 <meta property="og:image" content="https://lalutir.com/assets/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -40,7 +40,7 @@
   <header class="page-header">
     <span class="eyebrow">Portfolio</span>
     <h1>Selected work</h1>
-    <p class="intro">Two projects, both self-hosted on the same droplet as this site, both still running in production. Each one is a full write-up below — live link and source included.</p>
+    <p class="intro">Three projects, all self-hosted on the same droplet as this site, all still running in production. Each one is a full write-up below — live link and source included.</p>
   </header>
 
   <div class="section">
@@ -82,7 +82,26 @@
       </div>
     </article>
 
-    <div class="more-projects glass-panel glass-panel--kelp">
+    <article class="project glass-panel glass-panel--kelp">
+      <div class="project-icon" aria-hidden="true">&#128240;</div>
+      <div>
+        <h2>News Scanner</h2>
+        <p>A twice-daily politics, geopolitics, and conflict news digest. A fetch pipeline pulls from a curated list of English- and Dutch-language RSS sources, a keyword pre-filter cuts obvious noise, and Claude makes the actual relevance call, writes each entry's summary, and drafts a short daily briefing. The result goes out as an email via Mailgun at 07:00 and 19:00 Europe/Amsterdam on a systemd timer, and the same digest is published to a static site — no story repeats once it's already been sent.</p>
+        <div class="tag-list">
+          <span class="tag">Python</span>
+          <span class="tag">RSS</span>
+          <span class="tag">Claude API</span>
+          <span class="tag">Mailgun</span>
+          <span class="tag">systemd timer</span>
+        </div>
+        <div class="project-links">
+          <a class="btn btn-primary" href="https://news.lalutir.com" target="_blank" rel="noopener">Visit site</a>
+          <a class="btn btn-secondary" href="https://github.com/lalutir/news-scanner" target="_blank" rel="noopener">View source</a>
+        </div>
+      </div>
+    </article>
+
+    <div class="more-projects glass-panel glass-panel--amber">
       <h2>More on the way</h2>
       <p>New subdomains get added here as they go live — each one is its own repo with its own Caddy config and deploy script, on purpose, so adding a project never means touching this site. <a href="/contact/">Get in touch</a> if you want to hear about the next one first.</p>
     </div>

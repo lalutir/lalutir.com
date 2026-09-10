@@ -7,15 +7,15 @@ Personal site: resume + portfolio, self-hosted on a single DigitalOcean droplet 
 | Path | Purpose | Status |
 |---|---|---|
 | `/` | Home — hero, featured work (3 projects), infra note | Real |
-| `/portfolio/` | Full write-ups: World Cup Simulator, P2000 Reader, "more on the way" | Real |
-| `/about/` | Background + "Currently" | **Placeholder — see below** |
+| `/portfolio/` | Full write-ups: World Cup Simulator, P2000 Reader, News Scanner, "more on the way" | Real |
+| `/about/` | Background | **Placeholder — see below** |
 | `/resume/` | Experience, skills, education, PDF download | Real |
 | `/contact/` | Email, GitHub, LinkedIn | Real |
 | `/404.html` | Custom not-found page | Real, wired via Caddyfile |
 
 ## What's placeholder — fill these in before calling it done
 
-- `/about/` — "Background" is a plausible draft grounded in the two real projects, not verified biography. "Currently" needs to reflect whatever's actually true right now.
+- `/about/` — "Background" is a plausible draft grounded in the real projects, not verified biography.
 - `/resume/` — Experience and Education entries are format examples (`[Company]`, `[Month Year]`) — not real history. Skills section *is* real (pulled from what the two projects demonstrably use), just expand it if there's more elsewhere.
 - `/contact/` — LinkedIn URL and its detail line.
 - `/resume.pdf` — the download button on `/resume/` points here; the file doesn't exist yet.
