@@ -9,8 +9,8 @@ Personal site: resume + portfolio, self-hosted on a single DigitalOcean droplet 
 | `/` | Home — hero, featured work (3 projects), infra note | Real |
 | `/portfolio/` | Full write-ups: World Cup Simulator, P2000 Reader, "more on the way" | Real |
 | `/about/` | Background + "Currently" | **Placeholder — see below** |
-| `/resume/` | Experience, skills, education, PDF download | **Placeholder — see below** |
-| `/contact/` | Email, GitHub, LinkedIn | **LinkedIn is a placeholder** |
+| `/resume/` | Experience, skills, education, PDF download | Real |
+| `/contact/` | Email, GitHub, LinkedIn | Real |
 | `/404.html` | Custom not-found page | Real, wired via Caddyfile |
 
 ## What's placeholder — fill these in before calling it done
