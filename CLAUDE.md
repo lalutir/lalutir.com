@@ -6,7 +6,7 @@ Personal site: resume + portfolio, self-hosted on a single DigitalOcean droplet 
 
 | Path | Purpose | Status |
 |---|---|---|
-| `/` | Home — hero, featured work (2 projects), infra note | Real |
+| `/` | Home — hero, featured work (3 projects), infra note | Real |
 | `/portfolio/` | Full write-ups: World Cup Simulator, P2000 Reader, "more on the way" | Real |
 | `/about/` | Background + "Currently" | **Placeholder — see below** |
 | `/resume/` | Experience, skills, education, PDF download | **Placeholder — see below** |

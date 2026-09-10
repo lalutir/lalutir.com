@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>lalutir.com — personal site &amp; portfolio</title>
-<meta name="description" content="Personal site and portfolio for lalutir — self-hosted projects including a World Cup outcome simulator and a real-time Dutch emergency alerts feed.">
+<meta name="description" content="Personal site and portfolio for lalutir — self-hosted projects including a World Cup outcome simulator, a real-time Dutch emergency alerts feed, and a twice-daily politics news digest.">
 <meta name="theme-color" content="#F3EEE4">
 <meta property="og:type" content="website">
 <meta property="og:title" content="lalutir.com">
@@ -40,7 +40,7 @@
   <section class="hero">
     <div class="hero-panel glass-panel">
       <h1>I build things that run on my own server.</h1>
-      <p class="lede">Not a managed platform, not someone else's cloud — a single DigitalOcean droplet running Caddy, serving this site and everything behind it. Two projects are live there right now.</p>
+      <p class="lede">Not a managed platform, not someone else's cloud — a single DigitalOcean droplet running Caddy, serving this site and everything behind it. Three projects are live there right now.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="/portfolio/">See the portfolio</a>
         <a class="btn btn-secondary" href="/about/">About me</a>
@@ -67,6 +67,13 @@
         <h3>P2000 Reader</h3>
         <p>A live feed of Dutch emergency dispatches — fire, ambulance, police — pulled from p2000-online.net and pushed to the browser over WebSocket in real time.</p>
         <span class="work-link">p2000.lalutir.com &rarr;</span>
+      </a>
+
+      <a class="work-card glass-panel glass-panel--kelp" href="https://news.lalutir.com" target="_blank" rel="noopener">
+        <span class="work-icon" aria-hidden="true">&#128240;</span>
+        <h3>News Scanner</h3>
+        <p>A twice-daily politics and geopolitics digest — pulled from curated English and Dutch sources, filtered for relevance by Claude, and emailed and published on a systemd timer.</p>
+        <span class="work-link">news.lalutir.com &rarr;</span>
       </a>
 
     </div>
