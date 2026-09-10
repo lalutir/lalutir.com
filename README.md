@@ -1,8 +1,8 @@
 # lalutir.com
 
-Landing page and infrastructure config for **lalutir.com** — a static portfolio page that links out to a small set of side projects, each running as its own subdomain on the same server.
+Static personal site (home, portfolio, about, resume, contact) and infrastructure config for **lalutir.com**, which also links out to a small set of side projects, each running as its own subdomain on the same server.
 
-This repo contains only the landing page and the top-level Caddy config. The projects behind each subdomain live in their own repositories and are deployed independently (see [Subdomains](#subdomains) below).
+This repo contains the site's pages and the top-level Caddy config — no build step. The projects behind each subdomain live in their own repositories and are deployed independently (see [Subdomains](#subdomains) below).
 
 ## Contents
 
@@ -14,6 +14,7 @@ This repo contains only the landing page and the top-level Caddy config. The pro
 - [Subdomains](#subdomains)
   - [world-cup-simulation.lalutir.com](#world-cup-simulationlalutircom)
   - [p2000.lalutir.com](#p2000lalutircom)
+  - [news.lalutir.com](#newslalutircom)
 - [Adding a new subdomain](#adding-a-new-subdomain)
 - [Troubleshooting](#troubleshooting)
 
@@ -21,7 +22,7 @@ This repo contains only the landing page and the top-level Caddy config. The pro
 
 - Domain: **lalutir.com**
 - Registrar / DNS: **Cloudflare**
-- DNS records: a single `A` record for `lalutir.com` (and any subdomain records, e.g. `world-cup-simulation`, `p2000`) pointing at the Droplet's public IP.
+- DNS records: a single `A` record for `lalutir.com` (and any subdomain records, e.g. `world-cup-simulation`, `p2000`, `news`) pointing at the Droplet's public IP.
 - Cloudflare's proxy ("orange cloud") can be left on. If it's enabled, **SSL/TLS mode must be set to `Full (strict)`** in the Cloudflare dashboard under SSL/TLS → Overview — otherwise Cloudflare will fail to connect to Caddy's Let's Encrypt certificate over HTTPS.
 - TLS certificates themselves are **not managed in Cloudflare** — Caddy obtains and renews them automatically from Let's Encrypt on the origin server. No manual certificate steps are needed as long as ports 80 and 443 are open and DNS resolves to the Droplet.
 
@@ -49,9 +50,11 @@ DigitalOcean Droplet
         │
         ├── lalutir.com                        → /home/lalutir/lalutir.com            (this repo — static)
         ├── world-cup-simulation.lalutir.com    → /home/lalutir/world-cup-predictor    (static)
-        └── p2000.lalutir.com                   → /home/lalutir/p2000-reader/frontend/web/dist  (static)
-                                                 → reverse_proxy localhost:8000 for /api/*
-                                                     └── p2000 systemd service (FastAPI, port 8000, internal only)
+        ├── p2000.lalutir.com                   → /home/lalutir/p2000-reader/frontend/web/dist  (static)
+        │                                        → reverse_proxy localhost:8000 for /api/*
+        │                                            └── p2000 systemd service (FastAPI, port 8000, internal only)
+        └── news.lalutir.com                    → /home/lalutir/news-scanner/site      (static)
+                                                     └── news-scanner systemd timer (07:00 & 19:00, writes site/data/*/latest.json)
 ```
 
 Caddy is configured with a **single top-level `Caddyfile`** (owned by this repo) that only defines the main `lalutir.com` site and then imports every file in `/etc/caddy/conf.d/*.caddy`:
@@ -59,12 +62,17 @@ Caddy is configured with a **single top-level `Caddyfile`** (owned by this repo)
 ```caddyfile
 lalutir.com {
     root * /home/lalutir/lalutir.com
-    try_files {path} /index.html
     file_server
+    handle_errors {
+        rewrite * /404.html
+        file_server
+    }
 }
 
 import /etc/caddy/conf.d/*.caddy
 ```
+
+`file_server` serves each folder's `index.html` automatically (no SPA-style fallback), and `handle_errors` renders the custom 404 page for anything unmatched.
 
 Each subdomain project ships its **own** `*.caddy` snippet in its own repo (e.g. `world-cup.caddy`, `p2000.caddy`) and copies it into `/etc/caddy/conf.d/` as part of its own deploy script. This means:
 
@@ -75,7 +83,18 @@ Each subdomain project ships its **own** `*.caddy` snippet in its own repo (e.g.
 
 ```
 .
-├── index.html            # the landing page served at lalutir.com
+├── index.html            # home — hero, featured work, infra note
+├── portfolio/index.html  # full project write-ups
+├── about/index.html
+├── resume/index.html
+├── contact/index.html
+├── 404.html              # custom not-found page, wired via caddy/Caddyfile's handle_errors
+├── resume.pdf
+├── assets/
+│   ├── css/               # tokens.css (Seaglass design tokens) + site.css
+│   └── js/site.js
+├── sitemap.xml
+├── robots.txt
 ├── caddy/
 │   └── Caddyfile          # top-level Caddy config (main domain + import of conf.d/*)
 └── scripts/
@@ -119,7 +138,7 @@ Override `DROPLET_USER` (default `lalutir`), `REMOTE_PATH` (default `/home/lalut
 
 ## Subdomains
 
-Both subdomains are self-contained projects: each owns its own Caddy snippet, its own deploy script, and (for p2000) its own systemd service. Updating them never requires changes in this repo.
+All three subdomains are self-contained projects: each owns its own Caddy snippet, its own deploy script, and (for p2000 and news-scanner) its own systemd unit. Updating them never requires changes in this repo.
 
 ### world-cup-simulation.lalutir.com
 
@@ -240,9 +259,78 @@ sudo systemctl restart p2000
 
 A fresh Droplet can be provisioned for this project from scratch with that repo's `scripts/setup.sh`, which installs Python/Node/git, clones the repo, grants the `lalutir` user passwordless `sudo` for exactly the commands `deploy.sh` needs, and then runs `deploy.sh` itself.
 
+### news.lalutir.com
+
+**Repo:** [github.com/lalutir/news-scanner](https://github.com/lalutir/news-scanner)
+
+A twice-daily politics/geopolitics/conflict news digest: a backend pipeline that fetches curated English- and Dutch-language RSS sources, filters for relevance with Claude Haiku, emails the result via Mailgun at 07:00 and 19:00 (Europe/Amsterdam), and publishes the same digest to the site. Unlike the other two subdomains, the backend pipeline and the site live in one repo — the site has nothing to show without this repo's own pipeline output, so splitting them would just add a cross-repo dependency for no benefit.
+
+**How it's served:**
+
+```
+news.lalutir.com {
+    root * /home/lalutir/news-scanner/site
+    file_server
+}
+```
+
+Purely static, same as world-cup-simulation — the pipeline writes `site/data/<newsletter>/latest.json` directly into this same repo's served directory, so Caddy never reaches into another project's output.
+
+**Backend process:** a systemd **timer**, not a long-running service — it runs the pipeline once per firing and exits:
+
+```ini
+# systemd/news-scanner.service
+[Unit]
+Description=news-scanner digest run
+
+[Service]
+Type=oneshot
+User=lalutir
+WorkingDirectory=/home/lalutir/news-scanner
+EnvironmentFile=/home/lalutir/news-scanner/.env
+ExecStart=/home/lalutir/news-scanner/venv/bin/python -m news_scanner.run
+```
+
+```ini
+# systemd/news-scanner.timer
+[Unit]
+Description=Run news-scanner at 07:00 and 19:00
+
+[Timer]
+OnCalendar=*-*-* 07:00:00
+OnCalendar=*-*-* 19:00:00
+Timezone=Europe/Amsterdam
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+```
+
+**How it's updated:** on the Droplet, after `git push` to GitHub:
+
+```bash
+cd ~/news-scanner
+bash scripts/deploy.sh
+```
+
+That script (from the news-scanner repo) does everything in one pass — pulls, reinstalls backend deps, and re-copies both the systemd units and the Caddy snippet:
+
+```bash
+cd /home/lalutir/news-scanner
+git pull
+python3 -m venv venv --upgrade-deps && source venv/bin/activate
+pip install -r requirements.txt && deactivate
+sudo cp systemd/news-scanner.service systemd/news-scanner.timer /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable --now news-scanner.timer
+sudo cp caddy/news.caddy /etc/caddy/conf.d/news.caddy
+caddy validate --config /etc/caddy/Caddyfile
+sudo systemctl reload caddy
+```
+
 ## Adding a new subdomain
 
-The pattern established by the two existing subdomains is meant to be repeated for future projects, without ever touching this repo:
+The pattern established by the existing subdomains is meant to be repeated for future projects, without ever touching this repo:
 
 1. In the new project's own repo, add a `caddy/<name>.caddy` snippet scoped to its own subdomain (static `file_server`, or `reverse_proxy` to a local backend port, following the p2000 example if it needs an API).
 2. Add an `A` record for the subdomain in Cloudflare, pointing at the same Droplet IP.
